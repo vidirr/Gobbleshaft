@@ -83,8 +83,8 @@
     cpBody *secondBody;
     cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
     
-    ChipmunkBody *firstChipmunkBody = firstBody->data;
-    ChipmunkBody *secondChipmunkBody = secondBody->data;
+   // ChipmunkBody *firstChipmunkBody = firstBody->data;
+    //ChipmunkBody *secondChipmunkBody = secondBody->data;
     
     /*if ((firstChipmunkBody == _tank.chipmunkBody && secondChipmunkBody == _goal.chipmunkBody) ||
         (firstChipmunkBody == _goal.chipmunkBody && secondChipmunkBody == _tank.chipmunkBody)){
@@ -113,8 +113,8 @@
 {
     // Sky
     
-    //_skyLayer = [CCLayerGradient layerWithColor:ccc4(89, 67, 245, 255) fadingTo:ccc4(67, 219, 245, 255)];
-    //[self addChild:_skyLayer];
+    _skyLayer = [CCLayerGradient layerWithColor:ccc4(232, 108, 0, 255) fadingTo:ccc4(201, 32, 2, 255)];
+    [self addChild:_skyLayer];
     /*
     for (NSUInteger i = 0; i < 4; ++i)
     {
@@ -130,18 +130,23 @@
     _debugNode.visible = YES;
     [self addChild:_debugNode z:100];
     
-    CCSprite *cave = [CCSprite spriteWithFile:@"space.jpg"];
-    cave.anchorPoint = ccp(0, 0);
-    [_parallaxNode addChild:cave z:0 parallaxRatio:ccp(0.5f, 0.0f) positionOffset:CGPointZero];
+    CCSprite *skylineFar = [CCSprite spriteWithFile:@"skylinefar.png"];
+    skylineFar.anchorPoint = ccp(0, 0);
+    [_parallaxNode addChild:skylineFar z:0 parallaxRatio:ccp(0.5f, 0.0f) positionOffset:CGPointZero];
     
-    CCSprite *top = [CCSprite spriteWithFile:@"_top.png"];
+    CCSprite *skylineNear = [CCSprite spriteWithFile:@"skylinenear.png"];
+    skylineNear.anchorPoint = ccp(0, 0);
+    [_parallaxNode addChild:skylineNear z:1 parallaxRatio:ccp(0.3f, 0.0f) positionOffset:CGPointZero];
+    
+    
+    CCSprite *top = [CCSprite spriteWithFile:@"level1top.png"];
     top.anchorPoint = ccp(0, 0);
     _landscapeWidth = top.contentSize.width;
-    [_parallaxNode addChild:top z:0 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:ccp(0, 200)];
+    [_parallaxNode addChild:top z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:ccp(0, 0)];
     
-    CCSprite *bottom = [CCSprite spriteWithFile:@"_bottom.png"];
+    CCSprite *bottom = [CCSprite spriteWithFile:@"level1bottom.png"];
     bottom.anchorPoint = ccp(0, 0);
-    [_parallaxNode addChild: bottom z:0 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
+    [_parallaxNode addChild: bottom z:3 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
     
 
     
@@ -151,13 +156,13 @@
 
 - (void)setupPhysicsLandscape
 {
-    NSURL *top = [[NSBundle mainBundle] URLForResource:@"_top" withExtension:@"png"];
+    NSURL *top = [[NSBundle mainBundle] URLForResource:@"level1top" withExtension:@"png"];
     ChipmunkImageSampler *samplerTop = [ChipmunkImageSampler samplerWithImageFile:top isMask:NO];
     ChipmunkPolylineSet *contourTop = [samplerTop marchAllWithBorder:NO hard:YES];
     ChipmunkPolyline *lineTop = [contourTop lineAtIndex:0];
     ChipmunkPolyline *simpleLineTop = [lineTop simplifyCurves:1];
     
-    NSURL *bottom = [[NSBundle mainBundle] URLForResource:@"_bottom" withExtension:@"png"];
+    NSURL *bottom = [[NSBundle mainBundle] URLForResource:@"level1bottom" withExtension:@"png"];
     ChipmunkImageSampler *samplerBottom = [ChipmunkImageSampler samplerWithImageFile:bottom isMask:NO];
     ChipmunkPolylineSet *contourBottom = [samplerBottom marchAllWithBorder:NO hard:YES];
     ChipmunkPolyline *lineBottom = [contourBottom lineAtIndex:0];
@@ -165,7 +170,7 @@
     
     
     ChipmunkBody *terrainTop = [ChipmunkBody staticBody];
-    terrainTop.pos = ccp(0, 200);
+    terrainTop.pos = ccp(0, 0);
     ChipmunkBody *terrainBottom = [ChipmunkBody staticBody];
     
     NSMutableArray *terrainArray = [[NSMutableArray alloc] init];

@@ -27,7 +27,7 @@ const float MAX_RIGHT_LATERAL = 170;
             
             ChipmunkBody *body = [ChipmunkBody bodyWithMass:mass andMoment:moment];
             body.pos = position;
-            ChipmunkShape *shape = [ChipmunkCircleShape circleWithBody:body radius:size.width/2 offset:ccp(0, 0)];
+            ChipmunkShape *shape = [ChipmunkCircleShape circleWithBody:body radius:size.width/2 offset:cpvzero];
             //ChipmunkShape *shape = [ChipmunkPolyShape boxWithBody:body width:size.width height:size.height];
             shape.friction = 100;
             
