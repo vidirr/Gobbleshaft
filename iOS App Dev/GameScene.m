@@ -12,6 +12,8 @@
 #import "ChipmunkAutoGeometry.h"
 #import "Goal.h"
 #import "SimpleAudioEngine.h"
+#import "HudLayer.h"
+#import "Collectible.h"
 
 @implementation GameScene
 
@@ -22,6 +24,11 @@
     self = [super init];
     if (self)
     {
+        
+        _collectiblesArray = [[NSMutableArray alloc] init];
+        _hudLayer = [[HudLayer alloc] initWithConfiguration:_configuration];
+        [self addChild:_hudLayer z:8];
+        
         srandom(time(NULL));
         _winSize = [CCDirector sharedDirector].winSize;
         
@@ -50,10 +57,11 @@
         [self addChild:debugNode];
         
         // Add a tank
-        NSString *tankPositionString = _configuration[@"tankPosition"];
-        _tank = [[Player alloc] initWithSpace:_space position:CGPointFromString(tankPositionString)];
-        [_gameNode addChild:_tank];
+        NSString *playerPositionString = _configuration[@"tankPosition"];
+        _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
+        [_gameNode addChild:_player];
         
+        [self addCollectiblesToGameWorld];
         // Add goal
         //_goal = [[Goal alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"goalPosition"])];
         //[_gameNode addChild:_goal];
@@ -73,7 +81,7 @@
         
         // Your initilization code goes here
         [self scheduleUpdate];
-        _followTank = YES;
+        _followPlayer = YES;
     }
     return self;
 }
@@ -83,29 +91,31 @@
     cpBody *secondBody;
     cpArbiterGetBodies(arbiter, &firstBody, &secondBody);
     
-   // ChipmunkBody *firstChipmunkBody = firstBody->data;
-    //ChipmunkBody *secondChipmunkBody = secondBody->data;
+    ChipmunkBody *firstChipmunkBody = firstBody->data;
+    ChipmunkBody *secondChipmunkBody = secondBody->data;
     
-    /*if ((firstChipmunkBody == _tank.chipmunkBody && secondChipmunkBody == _goal.chipmunkBody) ||
-        (firstChipmunkBody == _goal.chipmunkBody && secondChipmunkBody == _tank.chipmunkBody)){
-        NSLog(@"TANK HIT GOAL :D:D:D xoxoxo");
+    for(Collectible *c in _collectiblesArray) {
+        
+    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == c.chipmunkBody) ||
+        (firstChipmunkBody == c.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
         
         // Play sfx
-        [[SimpleAudioEngine sharedEngine] playEffect:@"Impact.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        //[[SimpleAudioEngine sharedEngine] playEffect:@"Impact.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
         
         // Remove physics body
-        [_space smartRemove:_tank.chipmunkBody];
-        for (ChipmunkShape *shape in _tank.chipmunkBody.shapes) {
-            [_space smartRemove:shape];
-        }
+        //[_space smartRemove: c.chipmunkBody];
+        //for (ChipmunkShape *shape in c.chipmunkBody.shapes) {
+        //   [_space smartRemove:shape];
+        //}
         
-        // Remove tank from cocos2d
-        [_tank removeFromParentAndCleanup:YES];
+        // Remove collectible from cocos2d
+        [c removeFromParentAndCleanup:YES];
         
+        [_hudLayer updateScoreForBonus: 1000];
         // Play particle effect
-        [_splashParticles resetSystem];
-    }*/
-    
+        //[_splashParticles resetSystem];
+    }
+    }
     return YES;
 }
 
@@ -127,7 +137,7 @@
     [self addChild:_parallaxNode];
     
     _debugNode = [CCPhysicsDebugNode debugNodeForChipmunkSpace:_space];
-    _debugNode.visible = YES;
+    _debugNode.visible = NO;
     [self addChild:_debugNode z:100];
     
     CCSprite *skylineFar = [CCSprite spriteWithFile:@"skylinefar.png"];
@@ -138,7 +148,6 @@
     skylineNear.anchorPoint = ccp(0, 0);
     [_parallaxNode addChild:skylineNear z:1 parallaxRatio:ccp(0.3f, 0.0f) positionOffset:CGPointZero];
     
-    
     CCSprite *top = [CCSprite spriteWithFile:@"level1top.png"];
     top.anchorPoint = ccp(0, 0);
     _landscapeWidth = top.contentSize.width;
@@ -148,20 +157,20 @@
     bottom.anchorPoint = ccp(0, 0);
     [_parallaxNode addChild: bottom z:3 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
     
-
-    
     _gameNode = [CCNode node];
-    [_parallaxNode addChild:_gameNode z:1 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
+    [_parallaxNode addChild:_gameNode z:4 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
 }
 
 - (void)setupPhysicsLandscape
 {
+    //Set up the top of the world.
     NSURL *top = [[NSBundle mainBundle] URLForResource:@"level1top" withExtension:@"png"];
     ChipmunkImageSampler *samplerTop = [ChipmunkImageSampler samplerWithImageFile:top isMask:NO];
     ChipmunkPolylineSet *contourTop = [samplerTop marchAllWithBorder:NO hard:YES];
     ChipmunkPolyline *lineTop = [contourTop lineAtIndex:0];
     ChipmunkPolyline *simpleLineTop = [lineTop simplifyCurves:1];
     
+    //Set up the bottom of the world.
     NSURL *bottom = [[NSBundle mainBundle] URLForResource:@"level1bottom" withExtension:@"png"];
     ChipmunkImageSampler *samplerBottom = [ChipmunkImageSampler samplerWithImageFile:bottom isMask:NO];
     ChipmunkPolylineSet *contourBottom = [samplerBottom marchAllWithBorder:NO hard:YES];
@@ -195,75 +204,50 @@
     CGFloat fixedTimeStep = 1.0f / 240.0f;
     _accumulator += delta;
     
-    
-    [_tank applyLateralRight];
    
     while (_accumulator > fixedTimeStep)
     {
         [_space step:fixedTimeStep];
         _accumulator -= fixedTimeStep;
     }
-    /*
-    for (CCSprite *cloud in _skyLayer.children)
-    {
-        CGFloat cloudHalfWidth = cloud.contentSize.width / 2;
-        CGPoint newPosition = ccp(cloud.position.x + (_windSpeed * delta), cloud.position.y);
-        if (newPosition.x < -cloudHalfWidth)
-        {
-            newPosition.x = _skyLayer.contentSize.width + cloudHalfWidth;
-        }
-        else if (newPosition.x > (_skyLayer.contentSize.width + cloudHalfWidth))
-        {
-            newPosition.x = -cloudHalfWidth;
-        }
 
-        
-        cloud.position = newPosition;
-    }*/
+    //Update the score
+    [_hudLayer updateScore:_player.position.x];
     
-    if (_followTank == YES)
+    //if (_followPlayer == YES)
+    
+    if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
     {
-        //if (_tank.position.x >= (_winSize.width / 2) && _tank.position.x < (_landscapeWidth - (_winSize.width / 2)))
-        //{
-            _parallaxNode.position = ccp(-(_tank.position.x - (_winSize.width / 2)), 0);
-        //}
+        NSLog(@"Updating screen position %f %f", _player.position.x, _parallaxNode.position.x);
+        _parallaxNode.position = ccp(_parallaxNode.position.x - (140 * delta), 0);
     }
-}
-
--(CCSprite *)spriteWithColor:(ccColor4F)bgColor textureWidth:(float)textureWidth textureHeight:(float)textureHeight {
-    
-    // 1: Create new CCRenderTexture
-    CCRenderTexture *rt = [CCRenderTexture renderTextureWithWidth:textureWidth height:textureHeight];
-    
-    // 2: Call CCRenderTexture:begin
-    [rt beginWithClear:bgColor.r g:bgColor.g b:bgColor.b a:bgColor.a];
-    
-    // 3: Draw into the texture
-    // You'll add this later
-    
-    // 4: Call CCRenderTexture:end
-    [rt end];
-    
-    // 5: Create a new Sprite from the texture
-    return [CCSprite spriteWithTexture:rt.sprite.texture];
-}
-
-- (ccColor4F)randomBrightColor {
-    
-    while (true) {
-        float requiredBrightness = 192;
-        ccColor4B randomColor =
-        ccc4(arc4random() % 255,
-             arc4random() % 255,
-             arc4random() % 255,
-             255);
-        if (randomColor.r > requiredBrightness ||
-            randomColor.g > requiredBrightness ||
-            randomColor.b > requiredBrightness) {
-            return ccc4FFromccc4B(randomColor);
-        }
+    else {
+    CGPoint foo = _parallaxNode.position;
+        //NSLog(@"_parralaxNode before: %@", NSStringFromCGPoint(_parallaxNode.position));
+        _parallaxNode.position = ccp((foo.x - (20 * delta )), 0);
+        //NSLog(@"_parralaxNode after: %@", NSStringFromCGPoint(_parallaxNode.position));
     }
     
+}
+
+- (void) addCollectiblesToGameWorld{
+    
+    // Add collectibles
+    Collectible *c0 = [[Collectible alloc] initWithSpace:_space position:ccp(300.0f, 150.0f)];
+    Collectible *c1 = [[Collectible alloc] initWithSpace:_space position:ccp(400.0f, 160.0f)];
+    Collectible *c2 = [[Collectible alloc] initWithSpace:_space position:ccp(500.0f, 180.0f)];
+    Collectible *c3 = [[Collectible alloc] initWithSpace:_space position:ccp(300.0f, 130.0f)];
+    
+    [_gameNode addChild:c0];
+    [_gameNode addChild:c1];
+    [_gameNode addChild:c2];
+    [_gameNode addChild:c3];
+    
+    [_collectiblesArray addObject: c0];
+    [_collectiblesArray addObject: c1];
+    [_collectiblesArray addObject: c2];
+    [_collectiblesArray addObject: c3];
+
 }
 
 #pragma mark - My Touch Delegate Methods
@@ -272,11 +256,11 @@
 {
     position = [_gameNode convertToNodeSpace:position];
     NSLog(@"touch: %@", NSStringFromCGPoint(position));
-    NSLog(@"tank: %@", NSStringFromCGPoint(_tank.position));
+    NSLog(@"tank: %@", NSStringFromCGPoint(_player.position));
 
     
     cpVect upVector = cpv(0, 1);
-    [_tank jumpWithPower:delay * 300 vector:upVector];
+    [_player jumpWithPower:delay * 300 vector:upVector];
 }
 
 @end

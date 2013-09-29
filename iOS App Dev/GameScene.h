@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "InputLayer.h"
+#import "ScoreManager.h"
+#import "HudLayer.h"
+#import "Collectible.h"
 
 @class Player;
 @class Goal;
@@ -17,18 +20,19 @@
     CGSize _winSize;
     NSDictionary *_configuration;
     CCLayerGradient *_skyLayer;
-    CGFloat _windSpeed;
-    Player *_tank;
+    Player *_player;
     Goal *_goal;
     ChipmunkSpace *_space;
     ccTime _accumulator;
     CCParallaxNode *_parallaxNode;
-    CCParticleSystemQuad *_splashParticles;
+    CCParticleSystemQuad *_explosionParticles;
     CCNode *_gameNode;
     CCPhysicsDebugNode *_debugNode;
-    BOOL _followTank;
+    BOOL _followPlayer;
     CGFloat _landscapeWidth;
-    CGFloat _caveWidth;
+    HudLayer *_hudLayer;
+    NSMutableArray *_collectiblesArray;
+    
 }
 
 @end

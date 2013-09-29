@@ -17,5 +17,4 @@
 
 - (id)initWithSpace:(ChipmunkSpace *)space position:(CGPoint)position;
 - (void)jumpWithPower:(CGFloat)power vector:(cpVect)vector;
-- (void)applyLateralRight;
 @end
