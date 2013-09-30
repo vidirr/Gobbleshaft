@@ -246,9 +246,9 @@
             isGameOver = YES;
             return;
         }
-        else if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
+        else if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 180))
         {
-            _parallaxNode.position = ccp(-(_player.position.x - (_winSize.width - 100)), 0);
+            _parallaxNode.position = ccp(-(_player.position.x - (_winSize.width - 180)), 0);
         }
         else if(_player.position.x < -(_parallaxNode.position.x)) {
             GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:NO];
@@ -258,7 +258,7 @@
         else {
             CGPoint foo = _parallaxNode.position;
             //NSLog(@"_parralaxNode before: %@", NSStringFromCGPoint(_parallaxNode.position));
-            _parallaxNode.position = ccp((foo.x - (20 * delta )), 0);
+            _parallaxNode.position = ccp((foo.x - (40 * delta )), 0);
             //NSLog(@"_parralaxNode after: %@", NSStringFromCGPoint(_parallaxNode.position));
         }
     }

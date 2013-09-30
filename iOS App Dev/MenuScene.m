@@ -20,13 +20,13 @@
         // ask director for the window size
 		CGSize size = [[CCDirector sharedDirector] winSize];
         
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"START \n GOBBLESHAFT" fontName:@"Arial" fontSize:48];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"START \n GOBBLESHAFT" fontName:@"Arial" fontSize:42];
         CCMenuItemLabel *button = [CCMenuItemLabel itemWithLabel:label block:^(id sender)
         {
             GameScene *gameScene = [[GameScene alloc] init];
             [[CCDirector sharedDirector] replaceScene:gameScene];
         }];
-        button.position = ccp(size.width/2, size.width/2);
+        button.position = ccp(size.width/2, size.height/2);
         
         CCMenu *menu = [CCMenu menuWithItems:button, nil];
         menu.position = CGPointZero;

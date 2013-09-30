@@ -161,7 +161,6 @@
 		7D18DC5317F8A9C4005862A5 /* collectible_bag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D18DC5217F8A9C4005862A5 /* collectible_bag.png */; };
 		7DCBEFBA17F9D75C005C0AF2 /* goal_pikachu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */; };
 		7DCBEFBD17F9D7E9005C0AF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */; };
-		7DCBEFC017FA101C005C0AF2 /* sound_cashregister.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */; };
 		7DCBEFC117FA101C005C0AF2 /* sound_pikachu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */; };
 		7DCBEFC317FA1126005C0AF2 /* sound_coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */; };
 		7DCBEFC517FA1429005C0AF2 /* fireParticleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */; };
@@ -517,7 +516,6 @@
 		7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal_pikachu.png; path = Resources/goal_pikachu.png; sourceTree = "<group>"; };
 		7DCBEFBB17F9D7E9005C0AF2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
-		7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_cashregister.wav; path = Resources/sound_cashregister.wav; sourceTree = "<group>"; };
 		7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_pikachu.wav; path = Resources/sound_pikachu.wav; sourceTree = "<group>"; };
 		7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_coin.wav; path = Resources/sound_coin.wav; sourceTree = "<group>"; };
 		7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireParticleTexture.png; path = Resources/fireParticleTexture.png; sourceTree = "<group>"; };
@@ -616,7 +614,6 @@
 			children = (
 				7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */,
 				7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */,
-				7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */,
 				7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */,
 				7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */,
 				7D18DC5217F8A9C4005862A5 /* collectible_bag.png */,
@@ -1142,7 +1139,6 @@
 				7DCBEFBA17F9D75C005C0AF2 /* goal_pikachu.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
 				7D18DC4E17F897A5005862A5 /* ArialMT.ttf in Resources */,
-				7DCBEFC017FA101C005C0AF2 /* sound_cashregister.wav in Resources */,
 				0B312F5217E85CF200D0829B /* Icon-Small@2x.png in Resources */,
 				0B312F5417E85CF200D0829B /* Icon.png in Resources */,
 				0B0A7CA917F1FFE7000F7141 /* Explosion.plist in Resources */,
