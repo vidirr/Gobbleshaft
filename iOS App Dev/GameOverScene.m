@@ -17,12 +17,15 @@
     self = [super init];
     if (self != nil)
     {
+        // ask director for the window size
+		CGSize size = [[CCDirector sharedDirector] winSize];
+        
         CCLabelTTF *label;
         if(!win) {
-            label = [CCLabelTTF labelWithString:@"YOU DIE MAN! \nCLICK TO \nPLAY AGAIN" fontName:@"Arial" fontSize:48];
+            label = [CCLabelTTF labelWithString:@"YOU DIE MAN! \nCLICK TO \nPLAY AGAIN" fontName:@"Arial" fontSize:40];
         }
         else {
-          label = [CCLabelTTF labelWithString:@"YOU WIN MAN! \nCLICK TO \nPLAY AGAIN" fontName:@"Arial" fontSize:48];
+          label = [CCLabelTTF labelWithString:@"YOU WIN MAN! \nCLICK TO \nPLAY AGAIN" fontName:@"Arial" fontSize:40];
         }
         
         CCMenuItemLabel *button = [CCMenuItemLabel itemWithLabel:label block:^(id sender)
@@ -30,7 +33,7 @@
            GameScene *gameScene = [[GameScene alloc] init];
            [[CCDirector sharedDirector] replaceScene:gameScene];
         }];
-        button.position = ccp(200, 200);
+        button.position = ccp(size.width/2, size.height/2);
         
         CCMenu *menu = [CCMenu menuWithItems:button, nil];
         menu.position = CGPointZero;

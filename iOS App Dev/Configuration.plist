@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>goalPosition</key>
-	<string>{2200,110}</string>
+	<string>{2100,110}</string>
 	<key>gravity</key>
 	<string>100.0f</string>
 	<key>playerPosition</key>

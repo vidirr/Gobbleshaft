@@ -32,6 +32,7 @@
     CGFloat _landscapeWidth;
     HudLayer *_hudLayer;
     NSMutableArray *_collectiblesArray;
+    BOOL isGameOver;
     
 }
 

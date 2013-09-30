@@ -26,6 +26,7 @@
     if (self)
     {
         
+        isGameOver = NO;
         _collectiblesArray = [[NSMutableArray alloc] init];
         _hudLayer = [[HudLayer alloc] initWithConfiguration:_configuration];
         [self addChild:_hudLayer z:8];
@@ -115,8 +116,9 @@
         _player = NULL;
         // Play particle effect
         [_explosionParticles resetSystem];
-        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:TRUE];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:9.0 scene:gameOverScene withColor:ccBLACK]];
+        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:YES];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+        isGameOver = YES;
     }
     
     NSMutableArray *itemsToKeep = [NSMutableArray arrayWithCapacity:[_collectiblesArray count]];
@@ -211,6 +213,7 @@
     [terrainArray addObject: [simpleLineTop asChipmunkSegmentsWithBody:terrainTop radius:0 offset:cpvzero]];
     [terrainArray addObject: [simpleLineBottom asChipmunkSegmentsWithBody:terrainBottom radius:0 offset:cpvzero]];
     
+    // Loop through the each shape in the game, giving friction to each shape and adding them to the gamespace.
     for(NSArray *a in terrainArray) {
         for (ChipmunkShape *shape in a)
         {
@@ -220,7 +223,6 @@
     }
 }
 
-
 #pragma mark - Update
 
 - (void)update:(ccTime)delta
@@ -228,44 +230,37 @@
     CGFloat fixedTimeStep = 1.0f / 240.0f;
     _accumulator += delta;
     
-   
     while (_accumulator > fixedTimeStep)
     {
         [_space step:fixedTimeStep];
         _accumulator -= fixedTimeStep;
     }
-
-    //Update the score
-    [_hudLayer updateScore:_player.position.x];
-    
-    //if (_followPlayer == YES)
-    
-   // NSLog(NSStringFromCGPoint(_parallaxNode.position));
-    if( (_parallaxNode.position.x - _winSize.width) < -2380) {
+    if(!isGameOver) {
+        //Update the score according to how far the player has travelled in the game.
+        [_hudLayer updateScore:_player.position.x];
         
-        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:FALSE];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:6.0 scene:gameOverScene withColor:ccBLACK]];
-
-        
-
-        //[[CCDirector sharedDirector] replaceScene:gameOverScene];
-        return;
-    }
-    else if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
-    {
-        //NSLog(@"Updating screen position %f %f", _player.position.x, _parallaxNode.position.x);
-        //_parallaxNode.position = ccp(_parallaxNode.position.x - (125 * delta), 0);
-        _parallaxNode.position = ccp(-(_player.position.x - (_winSize.width - 100)), 0);
-    }
-    else if(_player.position.x < -(_parallaxNode.position.x)) {
-    GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:FALSE];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:6.0 scene:gameOverScene withColor:ccBLACK]];
-    }
-    else {
-    CGPoint foo = _parallaxNode.position;
-        //NSLog(@"_parralaxNode before: %@", NSStringFromCGPoint(_parallaxNode.position));
-        _parallaxNode.position = ccp((foo.x - (20 * delta )), 0);
-        //NSLog(@"_parralaxNode after: %@", NSStringFromCGPoint(_parallaxNode.position));
+       // NSLog(NSStringFromCGPoint(_parallaxNode.position));
+        if( (_parallaxNode.position.x - _winSize.width) < -2400) {
+            GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:NO];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+            isGameOver = YES;
+            return;
+        }
+        else if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
+        {
+            _parallaxNode.position = ccp(-(_player.position.x - (_winSize.width - 100)), 0);
+        }
+        else if(_player.position.x < -(_parallaxNode.position.x)) {
+            GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:NO];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+            isGameOver = YES;
+        }
+        else {
+            CGPoint foo = _parallaxNode.position;
+            //NSLog(@"_parralaxNode before: %@", NSStringFromCGPoint(_parallaxNode.position));
+            _parallaxNode.position = ccp((foo.x - (20 * delta )), 0);
+            //NSLog(@"_parralaxNode after: %@", NSStringFromCGPoint(_parallaxNode.position));
+        }
     }
     
 }
@@ -282,7 +277,7 @@
     [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1700.0f, 185.0f)]];
     [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1900.0f, 75.0f)]];
     
-    // Add each collectible to the gameworld.
+    // Loop through the array and add each collectible to the gamenode.
     for(Collectible *c in _collectiblesArray) {
         [_gameNode addChild:c];
     }
