@@ -95,64 +95,62 @@
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
     for(Collectible *c in _collectiblesArray) {
-        
-    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == c.chipmunkBody) ||
-        (firstChipmunkBody == c.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
-        
-        // Play sfx
-        //[[SimpleAudioEngine sharedEngine] playEffect:@"Impact.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
-        
-        // Remove physics body
-        //[_space smartRemove: c.chipmunkBody];
-        //for (ChipmunkShape *shape in c.chipmunkBody.shapes) {
-        //   [_space smartRemove:shape];
-        //}
-        
-        // Remove collectible from cocos2d
-        [c removeFromParentAndCleanup:YES];
-        
-        [_hudLayer updateScoreForBonus: 1000];
-        // Play particle effect
-        //[_splashParticles resetSystem];
-    }
+        if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == c.chipmunkBody) ||
+            (firstChipmunkBody == c.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
+            
+            // Play sfx
+            //[[SimpleAudioEngine sharedEngine] playEffect:@"Impact.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            
+            // Remove physics body
+            //[_space smartRemove: c.chipmunkBody];
+            //for (ChipmunkShape *shape in c.chipmunkBody.shapes) {
+            //   [_space smartRemove:shape];
+            //}
+            
+            // Remove collectible from cocos2d
+            [c removeFromParentAndCleanup:YES];
+            
+            // Update the score.
+            [_hudLayer updateScoreForBonus: 1000];
+            
+            // Play particle effect
+            //[_splashParticles resetSystem];
+        }
     }
     return YES;
 }
 
 - (void)setupGraphicsLandscape
 {
-    // Sky
-    
+    // Set up the sky layer (the sunset gradient in the background).
     _skyLayer = [CCLayerGradient layerWithColor:ccc4(232, 108, 0, 255) fadingTo:ccc4(201, 32, 2, 255)];
     [self addChild:_skyLayer];
-    /*
-    for (NSUInteger i = 0; i < 4; ++i)
-    {
-        CCSprite *cloud = [CCSprite spriteWithFile:@"Cloud.png"];
-        cloud.position = ccp(CCRANDOM_0_1() * _winSize.width, (CCRANDOM_0_1() * 200) + _winSize.height / 2);
-        [_skyLayer addChild:cloud];
-    }
-    */
+
     _parallaxNode = [CCParallaxNode node];
     [self addChild:_parallaxNode];
     
+    // Add the debug node to the world, default is disabled. Change to YES to see it.
     _debugNode = [CCPhysicsDebugNode debugNodeForChipmunkSpace:_space];
     _debugNode.visible = NO;
     [self addChild:_debugNode z:100];
     
+    // Create the background skyline which is scrolling behind everything else.
     CCSprite *skylineFar = [CCSprite spriteWithFile:@"skylinefar.png"];
     skylineFar.anchorPoint = ccp(0, 0);
     [_parallaxNode addChild:skylineFar z:0 parallaxRatio:ccp(0.5f, 0.0f) positionOffset:CGPointZero];
     
+    // Create the second, nearer skyline which scrolls at a slower pace.
     CCSprite *skylineNear = [CCSprite spriteWithFile:@"skylinenear.png"];
     skylineNear.anchorPoint = ccp(0, 0);
     [_parallaxNode addChild:skylineNear z:1 parallaxRatio:ccp(0.3f, 0.0f) positionOffset:CGPointZero];
     
+    // Create the top level border.
     CCSprite *top = [CCSprite spriteWithFile:@"level1top.png"];
     top.anchorPoint = ccp(0, 0);
     _landscapeWidth = top.contentSize.width;
     [_parallaxNode addChild:top z:2 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:ccp(0, 0)];
     
+    // Create the bottom level border.
     CCSprite *bottom = [CCSprite spriteWithFile:@"level1bottom.png"];
     bottom.anchorPoint = ccp(0, 0);
     [_parallaxNode addChild: bottom z:3 parallaxRatio:ccp(1.0f, 1.0f) positionOffset:CGPointZero];
@@ -177,13 +175,10 @@
     ChipmunkPolyline *lineBottom = [contourBottom lineAtIndex:0];
     ChipmunkPolyline *simpleLineBottom = [lineBottom simplifyCurves:1];
     
-    
     ChipmunkBody *terrainTop = [ChipmunkBody staticBody];
-    terrainTop.pos = ccp(0, 0);
     ChipmunkBody *terrainBottom = [ChipmunkBody staticBody];
     
     NSMutableArray *terrainArray = [[NSMutableArray alloc] init];
-    
     [terrainArray addObject: [simpleLineTop asChipmunkSegmentsWithBody:terrainTop radius:0 offset:cpvzero]];
     [terrainArray addObject: [simpleLineBottom asChipmunkSegmentsWithBody:terrainBottom radius:0 offset:cpvzero]];
     
@@ -232,21 +227,20 @@
 
 - (void) addCollectiblesToGameWorld{
     
-    // Add collectibles
-    Collectible *c0 = [[Collectible alloc] initWithSpace:_space position:ccp(300.0f, 150.0f)];
-    Collectible *c1 = [[Collectible alloc] initWithSpace:_space position:ccp(400.0f, 160.0f)];
-    Collectible *c2 = [[Collectible alloc] initWithSpace:_space position:ccp(500.0f, 180.0f)];
-    Collectible *c3 = [[Collectible alloc] initWithSpace:_space position:ccp(300.0f, 130.0f)];
+    // Create collectibles (manual positions for now) and add them to an array.
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(500.0f, 57.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(700.0f, 76.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(900.0f, 110.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1100.0f, 113.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1400.0f, 70.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1550.0f, 80.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1700.0f, 185.0f)]];
+    [_collectiblesArray addObject:[[Collectible alloc] initWithSpace:_space position:ccp(1900.0f, 75.0f)]];
     
-    [_gameNode addChild:c0];
-    [_gameNode addChild:c1];
-    [_gameNode addChild:c2];
-    [_gameNode addChild:c3];
-    
-    [_collectiblesArray addObject: c0];
-    [_collectiblesArray addObject: c1];
-    [_collectiblesArray addObject: c2];
-    [_collectiblesArray addObject: c3];
+    // Add each collectible to the gameworld.
+    for(Collectible *c in _collectiblesArray) {
+        [_gameNode addChild:c];
+    }
 
 }
 
