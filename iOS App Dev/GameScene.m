@@ -29,6 +29,7 @@
         isGameOver = NO;
         _collectiblesArray = [[NSMutableArray alloc] init];
         _hudLayer = [[HudLayer alloc] initWithConfiguration:_configuration];
+        
         [self addChild:_hudLayer z:8];
         
         srandom(time(NULL));
@@ -74,7 +75,7 @@
         [self addChild:inputLayer];
         
         // Setup particle system
-        _explosionParticles = [CCParticleSystemQuad particleWithFile:@"Explosion.plist"];
+        _explosionParticles = [CCParticleSystemQuad particleWithFile:@"explode.plist"];
         _explosionParticles.position = _goal.position;
         [_explosionParticles stopSystem];
         [_gameNode addChild:_explosionParticles];
@@ -98,26 +99,49 @@
     ChipmunkBody *firstChipmunkBody = firstBody->data;
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
+    // Collision of player with ground
+    /*
+    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == terrainBottom) ||
+        (firstChipmunkBody == terrainBottom && secondChipmunkBody == _player.chipmunkBody)){
+        //NSLog(@"Player colliding with ground");
+        
+        // Play sfx
+        // Found to be annoying since we're always colliding with the ground :(
+    }
+    */
+    
     if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _goal.chipmunkBody) ||
         (firstChipmunkBody == _goal.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
         NSLog(@"Player HIT pikachu! :D:D:D");
         
         // Play sfx
         [[SimpleAudioEngine sharedEngine] playEffect:@"sound_pikachu.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        [[SimpleAudioEngine sharedEngine] playEffect:@"sound_bomb.wav" pitch:1 pan:0 gain:1];
         
-        // Remove physics body
+        // Remove goal physics body
+        //[_space smartRemove:_goal.chipmunkBody];
+        for (ChipmunkShape *shape in _goal.chipmunkBody.shapes) {
+            [_space smartRemove:shape];
+        }
+        
+        // Remove goal from cocos2d.
+        [_goal removeFromParentAndCleanup:YES];
+        _goal = NULL;
+        
+        // Remove player physics body
         [_space smartRemove:_player.chipmunkBody];
         for (ChipmunkShape *shape in _player.chipmunkBody.shapes) {
             [_space smartRemove:shape];
         }
-        
+
         // Remove player from cocos2d
         [_player removeFromParentAndCleanup:YES];
         _player = NULL;
+        
         // Play particle effect
         [_explosionParticles resetSystem];
         GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:YES];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:4.0 scene:gameOverScene withColor:ccBLACK]];
         isGameOver = YES;
     }
     
@@ -207,7 +231,7 @@
     ChipmunkPolyline *simpleLineBottom = [lineBottom simplifyCurves:1];
     
     ChipmunkBody *terrainTop = [ChipmunkBody staticBody];
-    ChipmunkBody *terrainBottom = [ChipmunkBody staticBody];
+    terrainBottom = [ChipmunkBody staticBody];
     
     NSMutableArray *terrainArray = [[NSMutableArray alloc] init];
     [terrainArray addObject: [simpleLineTop asChipmunkSegmentsWithBody:terrainTop radius:0 offset:cpvzero]];
@@ -236,6 +260,7 @@
         _accumulator -= fixedTimeStep;
     }
     if(!isGameOver) {
+        
         //Update the score according to how far the player has travelled in the game.
         [_hudLayer updateScore:_player.position.x];
         
@@ -289,10 +314,9 @@
 - (void)touchEndedAtPositon:(CGPoint)position afterDelay:(NSTimeInterval)delay
 {
     position = [_gameNode convertToNodeSpace:position];
-    NSLog(@"touch: %@", NSStringFromCGPoint(position));
-    NSLog(@"Player: %@", NSStringFromCGPoint(_player.position));
+    //NSLog(@"touch: %@", NSStringFromCGPoint(position));
+    //NSLog(@"Player: %@", NSStringFromCGPoint(_player.position));
 
-    
     cpVect upVector = cpv(0, 1);
     [_player jumpWithPower:delay * 300 vector:upVector];
 }

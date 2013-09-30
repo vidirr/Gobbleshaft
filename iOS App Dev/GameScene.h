@@ -33,6 +33,7 @@
     HudLayer *_hudLayer;
     NSMutableArray *_collectiblesArray;
     BOOL isGameOver;
+    ChipmunkBody *terrainBottom;
     
 }
 

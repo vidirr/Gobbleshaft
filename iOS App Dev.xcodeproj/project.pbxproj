@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B0397FB17E8C78900210E20 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397FA17E8C78900210E20 /* Configuration.plist */; };
-		0B0A7CA917F1FFE7000F7141 /* Explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0A7CA817F1FFE7000F7141 /* Explosion.plist */; };
 		0B0A7CAC17F201BF000F7141 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A7CAB17F201BF000F7141 /* MenuScene.m */; };
 		0B312F2E17E85CF200D0829B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B312F2D17E85CF200D0829B /* QuartzCore.framework */; };
 		0B312F3017E85CF200D0829B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B312F2F17E85CF200D0829B /* OpenGLES.framework */; };
@@ -146,7 +145,6 @@
 		0B3130E117E85D0D00D0829B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3130E017E85D0D00D0829B /* ImageIO.framework */; };
 		0B31314017E8662800D0829B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B31313F17E8662800D0829B /* GameScene.m */; };
 		0B38002B17F1EC9300236BB5 /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B38002A17F1EC9300236BB5 /* Goal.m */; };
-		0B38003217F1FB7B00236BB5 /* Fired.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B38003017F1FB7B00236BB5 /* Fired.wav */; };
 		0B89900317EB568F00D856EB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B89900217EB568F00D856EB /* Player.m */; };
 		0B89900A17EB61F300D856EB /* InputLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B89900917EB61F300D856EB /* InputLayer.m */; };
 		7D18DC1817F38478005862A5 /* libChipmunkPro-iPhone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D18DC1617F38478005862A5 /* libChipmunkPro-iPhone.a */; };
@@ -163,12 +161,13 @@
 		7DCBEFBD17F9D7E9005C0AF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */; };
 		7DCBEFC117FA101C005C0AF2 /* sound_pikachu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */; };
 		7DCBEFC317FA1126005C0AF2 /* sound_coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */; };
-		7DCBEFC517FA1429005C0AF2 /* fireParticleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */; };
+		7DCBEFC917FA1DF9005C0AF2 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC717FA1DF9005C0AF2 /* fire.png */; };
+		7DCBEFCB17FA1EEA005C0AF2 /* explode.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFCA17FA1EEA005C0AF2 /* explode.plist */; };
+		7DCBEFCD17FA2073005C0AF2 /* sound_bomb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFCC17FA2073005C0AF2 /* sound_bomb.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B0397FA17E8C78900210E20 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
-		0B0A7CA817F1FFE7000F7141 /* Explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Explosion.plist; sourceTree = "<group>"; };
 		0B0A7CAA17F201BF000F7141 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		0B0A7CAB17F201BF000F7141 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
 		0B312F2A17E85CF200D0829B /* iOS App Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS App Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -455,7 +454,6 @@
 		0B31313F17E8662800D0829B /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		0B38002917F1EC9300236BB5 /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goal.h; sourceTree = "<group>"; };
 		0B38002A17F1EC9300236BB5 /* Goal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Goal.m; sourceTree = "<group>"; };
-		0B38003017F1FB7B00236BB5 /* Fired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Fired.wav; sourceTree = "<group>"; };
 		0B89900117EB568F00D856EB /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		0B89900217EB568F00D856EB /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		0B89900817EB61F300D856EB /* InputLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputLayer.h; sourceTree = "<group>"; };
@@ -518,7 +516,9 @@
 		7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_pikachu.wav; path = Resources/sound_pikachu.wav; sourceTree = "<group>"; };
 		7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_coin.wav; path = Resources/sound_coin.wav; sourceTree = "<group>"; };
-		7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireParticleTexture.png; path = Resources/fireParticleTexture.png; sourceTree = "<group>"; };
+		7DCBEFC717FA1DF9005C0AF2 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fire.png; path = Resources/fire.png; sourceTree = "<group>"; };
+		7DCBEFCA17FA1EEA005C0AF2 /* explode.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = explode.plist; path = Resources/explode.plist; sourceTree = "<group>"; };
+		7DCBEFCC17FA2073005C0AF2 /* sound_bomb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_bomb.wav; path = Resources/sound_bomb.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,7 +612,9 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */,
+				7DCBEFCC17FA2073005C0AF2 /* sound_bomb.wav */,
+				7DCBEFCA17FA1EEA005C0AF2 /* explode.plist */,
+				7DCBEFC717FA1DF9005C0AF2 /* fire.png */,
 				7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */,
 				7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */,
 				7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */,
@@ -622,8 +624,6 @@
 				7D18DC3F17F4DA55005862A5 /* skylinefar.png */,
 				7D18DC4017F4DA55005862A5 /* skylinenear.png */,
 				7D18DC4117F4DA55005862A5 /* squash.png */,
-				0B0A7CA817F1FFE7000F7141 /* Explosion.plist */,
-				0B38003017F1FB7B00236BB5 /* Fired.wav */,
 				0B0397FA17E8C78900210E20 /* Configuration.plist */,
 				0B312F4317E85CF200D0829B /* Default.png */,
 				0B312F4517E85CF200D0829B /* Default@2x.png */,
@@ -1130,19 +1130,19 @@
 				7DCBEFC317FA1126005C0AF2 /* sound_coin.wav in Resources */,
 				0B312F4A17E85CF200D0829B /* Default-Landscape~ipad.png in Resources */,
 				7D18DC4417F4DA55005862A5 /* skylinefar.png in Resources */,
-				7DCBEFC517FA1429005C0AF2 /* fireParticleTexture.png in Resources */,
 				0B312F4C17E85CF200D0829B /* Icon-72.png in Resources */,
 				7D18DC5317F8A9C4005862A5 /* collectible_bag.png in Resources */,
 				0B312F4E17E85CF200D0829B /* Icon-Small-50.png in Resources */,
-				0B38003217F1FB7B00236BB5 /* Fired.wav in Resources */,
 				7D18DC4217F4DA55005862A5 /* level1bottom.png in Resources */,
 				7DCBEFBA17F9D75C005C0AF2 /* goal_pikachu.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
 				7D18DC4E17F897A5005862A5 /* ArialMT.ttf in Resources */,
 				0B312F5217E85CF200D0829B /* Icon-Small@2x.png in Resources */,
 				0B312F5417E85CF200D0829B /* Icon.png in Resources */,
-				0B0A7CA917F1FFE7000F7141 /* Explosion.plist in Resources */,
+				7DCBEFCB17FA1EEA005C0AF2 /* explode.plist in Resources */,
 				0B312F5617E85CF200D0829B /* Icon@2x.png in Resources */,
+				7DCBEFC917FA1DF9005C0AF2 /* fire.png in Resources */,
+				7DCBEFCD17FA2073005C0AF2 /* sound_bomb.wav in Resources */,
 				0B312F5917E85CF200D0829B /* iTunesArtwork in Resources */,
 				0B3130B217E85CF400D0829B /* ChangeLog in Resources */,
 				7D18DC4517F4DA55005862A5 /* skylinenear.png in Resources */,
