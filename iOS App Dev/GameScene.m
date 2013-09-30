@@ -14,6 +14,7 @@
 #import "SimpleAudioEngine.h"
 #import "HudLayer.h"
 #import "Collectible.h"
+#import "GameOverScene.h"
 
 @implementation GameScene
 
@@ -56,15 +57,15 @@
         debugNode.visible = NO;
         [self addChild:debugNode];
         
-        // Add a tank
-        NSString *playerPositionString = _configuration[@"tankPosition"];
+        // Add a player
+        NSString *playerPositionString = _configuration[@"playerPosition"];
         _player = [[Player alloc] initWithSpace:_space position:CGPointFromString(playerPositionString)];
         [_gameNode addChild:_player];
         
         [self addCollectiblesToGameWorld];
         // Add goal
-        //_goal = [[Goal alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"goalPosition"])];
-        //[_gameNode addChild:_goal];
+        _goal = [[Goal alloc] initWithSpace:_space position:CGPointFromString(_configuration[@"goalPosition"])];
+        [_gameNode addChild:_goal];
         
         // Create a input layer
         InputLayer *inputLayer = [[InputLayer alloc] init];
@@ -72,12 +73,14 @@
         [self addChild:inputLayer];
         
         // Setup particle system
-        ////_splashParticles = [CCParticleSystemQuad particleWithFile:@"WaterSplash.plist"];
-        //[_splashParticles stopSystem];
-        //[_gameNode addChild:_splashParticles];
+        _explosionParticles = [CCParticleSystemQuad particleWithFile:@"Explosion.plist"];
+        _explosionParticles.position = _goal.position;
+        [_explosionParticles stopSystem];
+        [_gameNode addChild:_explosionParticles];
         
         // Preload sound effects
-        [[SimpleAudioEngine sharedEngine] preloadEffect:@"Impact.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"sound_pikachu.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"sound_coin.wav"];
         
         // Your initilization code goes here
         [self scheduleUpdate];
@@ -94,29 +97,55 @@
     ChipmunkBody *firstChipmunkBody = firstBody->data;
     ChipmunkBody *secondChipmunkBody = secondBody->data;
     
+    if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == _goal.chipmunkBody) ||
+        (firstChipmunkBody == _goal.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
+        NSLog(@"Player HIT pikachu! :D:D:D");
+        
+        // Play sfx
+        [[SimpleAudioEngine sharedEngine] playEffect:@"sound_pikachu.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+        
+        // Remove physics body
+        [_space smartRemove:_player.chipmunkBody];
+        for (ChipmunkShape *shape in _player.chipmunkBody.shapes) {
+            [_space smartRemove:shape];
+        }
+        
+        // Remove player from cocos2d
+        [_player removeFromParentAndCleanup:YES];
+        _player = NULL;
+        // Play particle effect
+        [_explosionParticles resetSystem];
+        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:TRUE];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:9.0 scene:gameOverScene withColor:ccBLACK]];
+    }
+    
+    NSMutableArray *itemsToKeep = [NSMutableArray arrayWithCapacity:[_collectiblesArray count]];
+    
     for(Collectible *c in _collectiblesArray) {
         if ((firstChipmunkBody == _player.chipmunkBody && secondChipmunkBody == c.chipmunkBody) ||
             (firstChipmunkBody == c.chipmunkBody && secondChipmunkBody == _player.chipmunkBody)){
             
             // Play sfx
-            //[[SimpleAudioEngine sharedEngine] playEffect:@"Impact.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
+            [[SimpleAudioEngine sharedEngine] playEffect:@"sound_coin.wav" pitch:(CCRANDOM_0_1() * 0.3f) + 1 pan:0 gain:1];
             
             // Remove physics body
-            //[_space smartRemove: c.chipmunkBody];
-            //for (ChipmunkShape *shape in c.chipmunkBody.shapes) {
-            //   [_space smartRemove:shape];
-            //}
+            for (ChipmunkShape *shape in c.chipmunkBody.shapes) {
+               [_space smartRemove:shape];
+            }
             
             // Remove collectible from cocos2d
             [c removeFromParentAndCleanup:YES];
             
             // Update the score.
             [_hudLayer updateScoreForBonus: 1000];
-            
-            // Play particle effect
-            //[_splashParticles resetSystem];
+        }
+        else{
+            // If we're not colliding with a collectible we want it in the array for the next round.
+            [itemsToKeep addObject:c];
         }
     }
+    // Update the _collectiblesArray with the remaining collectibles.
+    _collectiblesArray = itemsToKeep;
     return YES;
 }
 
@@ -211,10 +240,26 @@
     
     //if (_followPlayer == YES)
     
-    if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
+   // NSLog(NSStringFromCGPoint(_parallaxNode.position));
+    if( (_parallaxNode.position.x - _winSize.width) < -2380) {
+        
+        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:FALSE];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:6.0 scene:gameOverScene withColor:ccBLACK]];
+
+        
+
+        //[[CCDirector sharedDirector] replaceScene:gameOverScene];
+        return;
+    }
+    else if( _player.position.x > -(_parallaxNode.position.x) + (_winSize.width - 100))
     {
-        NSLog(@"Updating screen position %f %f", _player.position.x, _parallaxNode.position.x);
-        _parallaxNode.position = ccp(_parallaxNode.position.x - (140 * delta), 0);
+        //NSLog(@"Updating screen position %f %f", _player.position.x, _parallaxNode.position.x);
+        //_parallaxNode.position = ccp(_parallaxNode.position.x - (125 * delta), 0);
+        _parallaxNode.position = ccp(-(_player.position.x - (_winSize.width - 100)), 0);
+    }
+    else if(_player.position.x < -(_parallaxNode.position.x)) {
+    GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:FALSE];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:6.0 scene:gameOverScene withColor:ccBLACK]];
     }
     else {
     CGPoint foo = _parallaxNode.position;
@@ -250,7 +295,7 @@
 {
     position = [_gameNode convertToNodeSpace:position];
     NSLog(@"touch: %@", NSStringFromCGPoint(position));
-    NSLog(@"tank: %@", NSStringFromCGPoint(_player.position));
+    NSLog(@"Player: %@", NSStringFromCGPoint(_player.position));
 
     
     cpVect upVector = cpv(0, 1);

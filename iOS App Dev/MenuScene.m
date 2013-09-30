@@ -17,7 +17,7 @@
     self = [super init];
     if (self != nil)
     {
-        CCLabelTTF *label = [CCLabelTTF labelWithString:@"START" fontName:@"Arial" fontSize:48];
+        CCLabelTTF *label = [CCLabelTTF labelWithString:@"START \n GOBBLESHAFT" fontName:@"Arial" fontSize:48];
         CCMenuItemLabel *button = [CCMenuItemLabel itemWithLabel:label block:^(id sender)
         {
             GameScene *gameScene = [[GameScene alloc] init];

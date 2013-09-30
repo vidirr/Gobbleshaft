@@ -28,6 +28,7 @@
 
 -(void)updateScore : (int)val
 {
+    val -= 300;
     if(val > lastPosition) {
         val *= 0.1;
         score += val - lastPosition;

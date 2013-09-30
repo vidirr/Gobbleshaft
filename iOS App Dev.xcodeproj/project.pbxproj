@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B0397F417E8C15B00210E20 /* BackgroundMountains-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397F217E8C15B00210E20 /* BackgroundMountains-hd.png */; };
-		0B0397F517E8C15B00210E20 /* BackgroundMountains.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397F317E8C15B00210E20 /* BackgroundMountains.png */; };
 		0B0397FB17E8C78900210E20 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397FA17E8C78900210E20 /* Configuration.plist */; };
-		0B0397FE17E8C8D000210E20 /* Cloud-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397FC17E8C8D000210E20 /* Cloud-hd.png */; };
-		0B0397FF17E8C8D000210E20 /* Cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B0397FD17E8C8D000210E20 /* Cloud.png */; };
-		0B0A7CA917F1FFE7000F7141 /* WaterSplash.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0A7CA817F1FFE7000F7141 /* WaterSplash.plist */; };
+		0B0A7CA917F1FFE7000F7141 /* Explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B0A7CA817F1FFE7000F7141 /* Explosion.plist */; };
 		0B0A7CAC17F201BF000F7141 /* MenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A7CAB17F201BF000F7141 /* MenuScene.m */; };
 		0B312F2E17E85CF200D0829B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B312F2D17E85CF200D0829B /* QuartzCore.framework */; };
 		0B312F3017E85CF200D0829B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B312F2F17E85CF200D0829B /* OpenGLES.framework */; };
@@ -150,8 +146,6 @@
 		0B3130E117E85D0D00D0829B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B3130E017E85D0D00D0829B /* ImageIO.framework */; };
 		0B31314017E8662800D0829B /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B31313F17E8662800D0829B /* GameScene.m */; };
 		0B38002B17F1EC9300236BB5 /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B38002A17F1EC9300236BB5 /* Goal.m */; };
-		0B38002E17F1EF0300236BB5 /* Goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B38002C17F1EF0300236BB5 /* Goal.png */; };
-		0B38002F17F1EF0300236BB5 /* Goal-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B38002D17F1EF0300236BB5 /* Goal-hd.png */; };
 		0B38003217F1FB7B00236BB5 /* Fired.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B38003017F1FB7B00236BB5 /* Fired.wav */; };
 		0B38003317F1FB7B00236BB5 /* Impact.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0B38003117F1FB7B00236BB5 /* Impact.wav */; };
 		0B89900317EB568F00D856EB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B89900217EB568F00D856EB /* Player.m */; };
@@ -166,15 +160,17 @@
 		7D18DC4E17F897A5005862A5 /* ArialMT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D18DC4D17F897A5005862A5 /* ArialMT.ttf */; };
 		7D18DC5117F8A907005862A5 /* Collectible.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D18DC5017F8A907005862A5 /* Collectible.m */; };
 		7D18DC5317F8A9C4005862A5 /* collectible_bag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D18DC5217F8A9C4005862A5 /* collectible_bag.png */; };
+		7DCBEFBA17F9D75C005C0AF2 /* goal_pikachu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */; };
+		7DCBEFBD17F9D7E9005C0AF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */; };
+		7DCBEFC017FA101C005C0AF2 /* sound_cashregister.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */; };
+		7DCBEFC117FA101C005C0AF2 /* sound_pikachu.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */; };
+		7DCBEFC317FA1126005C0AF2 /* sound_coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */; };
+		7DCBEFC517FA1429005C0AF2 /* fireParticleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B0397F217E8C15B00210E20 /* BackgroundMountains-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackgroundMountains-hd.png"; sourceTree = "<group>"; };
-		0B0397F317E8C15B00210E20 /* BackgroundMountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackgroundMountains.png; sourceTree = "<group>"; };
 		0B0397FA17E8C78900210E20 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
-		0B0397FC17E8C8D000210E20 /* Cloud-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cloud-hd.png"; sourceTree = "<group>"; };
-		0B0397FD17E8C8D000210E20 /* Cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cloud.png; sourceTree = "<group>"; };
-		0B0A7CA817F1FFE7000F7141 /* WaterSplash.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WaterSplash.plist; sourceTree = "<group>"; };
+		0B0A7CA817F1FFE7000F7141 /* Explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Explosion.plist; sourceTree = "<group>"; };
 		0B0A7CAA17F201BF000F7141 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
 		0B0A7CAB17F201BF000F7141 /* MenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScene.m; sourceTree = "<group>"; };
 		0B312F2A17E85CF200D0829B /* iOS App Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS App Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -461,8 +457,6 @@
 		0B31313F17E8662800D0829B /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		0B38002917F1EC9300236BB5 /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goal.h; sourceTree = "<group>"; };
 		0B38002A17F1EC9300236BB5 /* Goal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Goal.m; sourceTree = "<group>"; };
-		0B38002C17F1EF0300236BB5 /* Goal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Goal.png; sourceTree = "<group>"; };
-		0B38002D17F1EF0300236BB5 /* Goal-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Goal-hd.png"; sourceTree = "<group>"; };
 		0B38003017F1FB7B00236BB5 /* Fired.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Fired.wav; sourceTree = "<group>"; };
 		0B38003117F1FB7B00236BB5 /* Impact.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Impact.wav; sourceTree = "<group>"; };
 		0B89900117EB568F00D856EB /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -522,6 +516,13 @@
 		7D18DC4F17F8A907005862A5 /* Collectible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collectible.h; sourceTree = "<group>"; };
 		7D18DC5017F8A907005862A5 /* Collectible.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collectible.m; sourceTree = "<group>"; };
 		7D18DC5217F8A9C4005862A5 /* collectible_bag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = collectible_bag.png; path = Resources/collectible_bag.png; sourceTree = "<group>"; };
+		7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal_pikachu.png; path = Resources/goal_pikachu.png; sourceTree = "<group>"; };
+		7DCBEFBB17F9D7E9005C0AF2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_cashregister.wav; path = Resources/sound_cashregister.wav; sourceTree = "<group>"; };
+		7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_pikachu.wav; path = Resources/sound_pikachu.wav; sourceTree = "<group>"; };
+		7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound_coin.wav; path = Resources/sound_coin.wav; sourceTree = "<group>"; };
+		7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireParticleTexture.png; path = Resources/fireParticleTexture.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,6 +607,8 @@
 				0B312F4217E85CF200D0829B /* Resources */,
 				0B312F5A17E85CF200D0829B /* libs */,
 				0B3130CE17E85CF400D0829B /* Supporting Files */,
+				7DCBEFBB17F9D7E9005C0AF2 /* GameOverScene.h */,
+				7DCBEFBC17F9D7E9005C0AF2 /* GameOverScene.m */,
 			);
 			path = "iOS App Dev";
 			sourceTree = "<group>";
@@ -613,22 +616,21 @@
 		0B312F4217E85CF200D0829B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DCBEFC417FA1429005C0AF2 /* fireParticleTexture.png */,
+				7DCBEFC217FA1126005C0AF2 /* sound_coin.wav */,
+				7DCBEFBE17FA101C005C0AF2 /* sound_cashregister.wav */,
+				7DCBEFBF17FA101C005C0AF2 /* sound_pikachu.wav */,
+				7DCBEFB917F9D75C005C0AF2 /* goal_pikachu.png */,
 				7D18DC5217F8A9C4005862A5 /* collectible_bag.png */,
 				7D18DC3D17F4DA55005862A5 /* level1bottom.png */,
 				7D18DC3E17F4DA55005862A5 /* level1top.png */,
 				7D18DC3F17F4DA55005862A5 /* skylinefar.png */,
 				7D18DC4017F4DA55005862A5 /* skylinenear.png */,
 				7D18DC4117F4DA55005862A5 /* squash.png */,
-				0B0A7CA817F1FFE7000F7141 /* WaterSplash.plist */,
+				0B0A7CA817F1FFE7000F7141 /* Explosion.plist */,
 				0B38003017F1FB7B00236BB5 /* Fired.wav */,
 				0B38003117F1FB7B00236BB5 /* Impact.wav */,
-				0B38002C17F1EF0300236BB5 /* Goal.png */,
-				0B38002D17F1EF0300236BB5 /* Goal-hd.png */,
-				0B0397FC17E8C8D000210E20 /* Cloud-hd.png */,
-				0B0397FD17E8C8D000210E20 /* Cloud.png */,
 				0B0397FA17E8C78900210E20 /* Configuration.plist */,
-				0B0397F217E8C15B00210E20 /* BackgroundMountains-hd.png */,
-				0B0397F317E8C15B00210E20 /* BackgroundMountains.png */,
 				0B312F4317E85CF200D0829B /* Default.png */,
 				0B312F4517E85CF200D0829B /* Default@2x.png */,
 				7D18DC4D17F897A5005862A5 /* ArialMT.ttf */,
@@ -1128,33 +1130,32 @@
 			files = (
 				7D18DC4317F4DA55005862A5 /* level1top.png in Resources */,
 				0B312F4417E85CF200D0829B /* Default.png in Resources */,
+				7DCBEFC117FA101C005C0AF2 /* sound_pikachu.wav in Resources */,
 				0B312F4617E85CF200D0829B /* Default@2x.png in Resources */,
 				0B312F4817E85CF200D0829B /* Default-568h@2x.png in Resources */,
-				0B38002F17F1EF0300236BB5 /* Goal-hd.png in Resources */,
+				7DCBEFC317FA1126005C0AF2 /* sound_coin.wav in Resources */,
 				0B38003317F1FB7B00236BB5 /* Impact.wav in Resources */,
 				0B312F4A17E85CF200D0829B /* Default-Landscape~ipad.png in Resources */,
 				7D18DC4417F4DA55005862A5 /* skylinefar.png in Resources */,
+				7DCBEFC517FA1429005C0AF2 /* fireParticleTexture.png in Resources */,
 				0B312F4C17E85CF200D0829B /* Icon-72.png in Resources */,
 				7D18DC5317F8A9C4005862A5 /* collectible_bag.png in Resources */,
 				0B312F4E17E85CF200D0829B /* Icon-Small-50.png in Resources */,
 				0B38003217F1FB7B00236BB5 /* Fired.wav in Resources */,
 				7D18DC4217F4DA55005862A5 /* level1bottom.png in Resources */,
-				0B38002E17F1EF0300236BB5 /* Goal.png in Resources */,
+				7DCBEFBA17F9D75C005C0AF2 /* goal_pikachu.png in Resources */,
 				0B312F5017E85CF200D0829B /* Icon-Small.png in Resources */,
 				7D18DC4E17F897A5005862A5 /* ArialMT.ttf in Resources */,
+				7DCBEFC017FA101C005C0AF2 /* sound_cashregister.wav in Resources */,
 				0B312F5217E85CF200D0829B /* Icon-Small@2x.png in Resources */,
 				0B312F5417E85CF200D0829B /* Icon.png in Resources */,
-				0B0A7CA917F1FFE7000F7141 /* WaterSplash.plist in Resources */,
+				0B0A7CA917F1FFE7000F7141 /* Explosion.plist in Resources */,
 				0B312F5617E85CF200D0829B /* Icon@2x.png in Resources */,
 				0B312F5917E85CF200D0829B /* iTunesArtwork in Resources */,
 				0B3130B217E85CF400D0829B /* ChangeLog in Resources */,
-				0B0397F417E8C15B00210E20 /* BackgroundMountains-hd.png in Resources */,
 				7D18DC4517F4DA55005862A5 /* skylinenear.png in Resources */,
 				7D18DC4617F4DA55005862A5 /* squash.png in Resources */,
-				0B0397F517E8C15B00210E20 /* BackgroundMountains.png in Resources */,
 				0B0397FB17E8C78900210E20 /* Configuration.plist in Resources */,
-				0B0397FE17E8C8D000210E20 /* Cloud-hd.png in Resources */,
-				0B0397FF17E8C8D000210E20 /* Cloud.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1256,6 +1257,7 @@
 				0B31307817E85CF400D0829B /* NSThread+performBlock.m in Sources */,
 				0B31307C17E85CF400D0829B /* TGAlib.m in Sources */,
 				0B31307F17E85CF400D0829B /* TransformUtils.m in Sources */,
+				7DCBEFBD17F9D7E9005C0AF2 /* GameOverScene.m in Sources */,
 				0B31308417E85CF400D0829B /* ZipUtils.m in Sources */,
 				0B31308917E85CF400D0829B /* CDAudioManager.m in Sources */,
 				0B31308D17E85CF400D0829B /* CDOpenALSupport.m in Sources */,

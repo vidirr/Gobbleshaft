@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-const float MAX_RIGHT_LATERAL = 140;
+const float MAX_RIGHT_LATERAL = 120;
 
 @implementation Player
 
@@ -48,6 +48,8 @@ const float MAX_RIGHT_LATERAL = 140;
 
 - (void)jumpWithPower:(CGFloat)power vector:(cpVect)vector
 {
+    //If player is still in the map (he gets removed after touching goal).
+    if(self == NULL) return;
     cpVect impulseVectorWithLateral = cpvmult(ccp(0.7f, 1), self.chipmunkBody.mass * power);
     cpVect impulseVectorJump = cpvmult(ccp(0,1), self.chipmunkBody.mass * power);
     
