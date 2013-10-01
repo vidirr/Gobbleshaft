@@ -4,7 +4,8 @@
 //
 //  Created by Sveinn Fannar Kristjansson on 9/14/13.
 //  Copyright Sveinn Fannar Kristjansson 2013. All rights reserved.
-//
+//  Edited by King Gunnar and his minion Vidir.
+
 
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"

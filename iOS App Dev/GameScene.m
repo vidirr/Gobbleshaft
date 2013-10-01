@@ -4,7 +4,7 @@
 //
 //  Created by Sveinn Fannar Kristjansson on 9/17/13.
 //  Copyright 2013 Sveinn Fannar Kristjansson. All rights reserved.
-//  Edited by KingVidir and his minion Gunnar.
+//  Edited by King Gunnar and his minion Vidir.
 
 #import "GameScene.h"
 #import "Player.h"
@@ -30,6 +30,8 @@
         _collectiblesArray = [[NSMutableArray alloc] init];
         _hudLayer = [[HudLayer alloc] initWithConfiguration:_configuration];
         
+        
+        [[SimpleAudioEngine sharedEngine] playEffect:@"ambient.mp3" pitch:1 pan:0 gain:1];
         [self addChild:_hudLayer z:8];
         
         srandom(time(NULL));
@@ -127,21 +129,25 @@
         // Remove goal from cocos2d.
         [_goal removeFromParentAndCleanup:YES];
         _goal = NULL;
-        
+
+        [_player massiveExplosionSithStyleForceUsageButstillAnImpulse:20.0f vector:cpv(-(0.1 * _player.chipmunkBody.vel.x), _player.chipmunkBody.vel.y)];
         // Remove player physics body
-        [_space smartRemove:_player.chipmunkBody];
-        for (ChipmunkShape *shape in _player.chipmunkBody.shapes) {
-            [_space smartRemove:shape];
-        }
+       // [_space smartRemove:_player.chipmunkBody];
+       // for (ChipmunkShape *shape in _player.chipmunkBody.shapes) {
+       //     [_space smartRemove:shape];
+       // }
 
         // Remove player from cocos2d
-        [_player removeFromParentAndCleanup:YES];
-        _player = NULL;
+        //[_player removeFromParentAndCleanup:YES];
+        //_player = NULL;
+        
+        
+        
         
         // Play particle effect
         [_explosionParticles resetSystem];
         GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:YES];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:4.0 scene:gameOverScene withColor:ccBLACK]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:5.0 scene:gameOverScene withColor:ccBLACK]];
         isGameOver = YES;
     }
     
@@ -267,7 +273,7 @@
        // NSLog(NSStringFromCGPoint(_parallaxNode.position));
         if( (_parallaxNode.position.x - _winSize.width) < -2400) {
             GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:NO];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:gameOverScene withColor:ccBLACK]];
             isGameOver = YES;
             return;
         }
@@ -277,7 +283,7 @@
         }
         else if(_player.position.x < -(_parallaxNode.position.x)) {
             GameOverScene *gameOverScene = [[GameOverScene alloc] initWithWinOrDeath:NO];
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:2.0 scene:gameOverScene withColor:ccBLACK]];
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1.0 scene:gameOverScene withColor:ccBLACK]];
             isGameOver = YES;
         }
         else {

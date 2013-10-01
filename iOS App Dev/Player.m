@@ -4,7 +4,8 @@
 //
 //  Created by Sveinn Fannar Kristjansson on 9/19/13.
 //  Copyright 2013 Sveinn Fannar Kristjansson. All rights reserved.
-//
+//  Edited by King Gunnar and his minion Vidir.
+
 
 #import "Player.h"
 
@@ -58,6 +59,14 @@ const float MAX_RIGHT_LATERAL = 120;
     //If not we just apply on up.
     else [self.chipmunkBody applyImpulse:impulseVectorJump offset:cpvzero];
     
+}
+
+-(void)massiveExplosionSithStyleForceUsageButstillAnImpulse:(CGFloat)power vector:(cpVect)vector
+{
+    
+    cpVect impulseVectorFromPikachu = cpvmult(vector, self.chipmunkBody.mass * power);
+    [self.chipmunkBody applyImpulse:impulseVectorFromPikachu offset:cpvzero];
+
 }
 
 @end
